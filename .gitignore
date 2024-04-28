@@ -6,7 +6,6 @@ __pycache__/
 # C extensions
 *.so
 
-bd.py
 # Distribution / packaging
 .Python
 build/

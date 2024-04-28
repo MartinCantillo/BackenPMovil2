@@ -1,6 +1,6 @@
 from  config.bd import bd,app,ma
 
-class User(bd.model):
+class Banner(bd.model):
     __tablename__='tblBanner'
     id = bd.Column(bd.Integer, primary_key = True)
     titulo = bd.Column(bd.String(50))
@@ -14,6 +14,6 @@ class User(bd.model):
 with app.app_context():
  bd.create_all()
 
-class UserSchema(ma.Schema):
+class BannerSchema(ma.Schema):
     class Meta:
         fields=("id","titulo","descripcion","fecha")    

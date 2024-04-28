@@ -19,6 +19,6 @@ class Residente(bd.model):
 with app.app_context():
     bd.create_all()
 
-class UserSchema(ma.Schema):
+class ResidenteSchema(ma.Schema):
     class Meta:
         fields=("id","nombreResidente","apellidoResidente","numApartamento","numTelefono","IdUser")    

@@ -16,6 +16,6 @@ class Administrador(bd.model):
 with app.app_context():
     bd.create_all()
 
-class UserSchema(ma.Schema):
+class AdministradorSchema(ma.Schema):
     class Meta:
         fields=("id","nombreAdmin","apellidoAdmin","telefono")    

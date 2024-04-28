@@ -25,6 +25,6 @@ class Anomalia(bd.model):
 with app.app_context():
     bd.create_all()
 
-class UserSchema(ma.Schema):
+class AnomaliaSchema(ma.Schema):
     class Meta:
         fields=("id","descripcionAnomalia","fechaReporteAnomalia","fotoAnomalia","tipoAnomalia","asuntoAnomalia","idEstadoAnomalia","prioridad","IdUser")    
