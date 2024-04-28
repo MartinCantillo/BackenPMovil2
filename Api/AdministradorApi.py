@@ -1,6 +1,6 @@
 from flask import Flask, Blueprint, request, jsonify
 from config.bd import app, bd, ma
-from Models.User import Administrador, AdministradorSchema
+from Models.Administrador import Administrador, AdministradorSchema
 
 ruta_user = Blueprint("route_Administrador", __name__)
 
