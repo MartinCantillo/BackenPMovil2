@@ -9,10 +9,11 @@ Banners_schema = BannerSchema(many=True)
 
 @ruta_user.route("/saveBanner", methods=['POST'])
 def saveBanner():
-    username= request.json['username']
-    password = request.json['password']
-    newuser = Banner(username, password)
-    bd.session.add(newuser)
+    titulo= request.json['titulo']
+    descripcion = request.json['descripcion']
+    fecha = request.json['fecha']
+    newBanner = Banner(titulo, descripcion,fecha)
+    bd.session.add(newBanner)
     bd.session.commit()
     return "saved"
 
