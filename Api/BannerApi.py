@@ -29,9 +29,12 @@ def GetAll():
 def deleteBanner():
     id = request.json['id'] 
     banner = Banner.query.get(id)    
-    bd.session.delete(banner)
-    bd.session.commit()     
-    return jsonify(Banner_schema.dump(banner))
+    if banner:
+        bd.session.delete(banner)
+        bd.session.commit()     
+        return jsonify(Banner_schema.dump(banner))
+    else: 
+         return jsonify({"message": "Banner not found"}), 404 
 
 
 @app.route("/updateBanner", methods=['POST'])
@@ -41,8 +44,11 @@ def updateBanner():
     descripcion = request.json['descripcion']
     fecha = request.json['fecha']
     bannerGot = Banner.query.get(id)  
-    bannerGot.username = titulo
-    bannerGot.descripcion = descripcion
-    bannerGot.fecha = fecha
-    bd.session.commit()     
-    return "Updated sussefull"
+    if bannerGot:
+        bannerGot.username = titulo
+        bannerGot.descripcion = descripcion
+        bannerGot.fecha = fecha
+        bd.session.commit()     
+        return "Updated sussefull"
+    else: 
+         return jsonify({"message": "Banner not found"}), 404 

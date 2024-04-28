@@ -28,9 +28,12 @@ def GetAll():
 def deleteUser():
     id = request.json['id'] 
     usuario = User.query.get(id)    
-    bd.session.delete(usuario)
-    bd.session.commit()     
-    return jsonify(usuario_schema.dump(usuario))
+    if usuario:
+        bd.session.delete(usuario)
+        bd.session.commit()     
+        return jsonify(usuario_schema.dump(usuario))
+    else:
+        return jsonify({"message": "User not found"}), 404 
 
 
 @app.route("/updateUser", methods=['POST'])
@@ -39,7 +42,10 @@ def updateUser():
     username = request.json['username']
     password = request.json['password']
     userGot = User.query.get(id)  
-    userGot.username = username
-    userGot.password = password
-    bd.session.commit()     
-    return "Updated sussefull"
+    if userGot:
+        userGot.username = username
+        userGot.password = password
+        bd.session.commit()     
+        return "Updated sussefull"
+    else:
+         return jsonify({"message": "User not found"}), 404 
