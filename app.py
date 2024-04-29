@@ -1,14 +1,19 @@
 from flask import Flask, request, redirect, render_template
 from config.bd import app
 
-#Rutas de las apis
+#Routes of the  apis
+from Api.UserApi import ruta_user
+from Api.BannerApi import ruta_banner
+from Api.AdministradorApi import ruta_admin
+from Api.ResidenteApi import ruta_residente
+from Api.AnomaliaApi import ruta_anomalia
 
 
 
 
 @app.route("/")
 def index():
-    return "hola"
+    return "Welcome"
 
 
 if __name__ == "__main__":

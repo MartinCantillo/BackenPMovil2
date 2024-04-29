@@ -2,12 +2,12 @@ from flask import Flask, Blueprint, request, jsonify
 from config.bd import app, bd, ma
 from Models.Anomalia import Anomalia, AnomaliaSchema
 
-ruta_user = Blueprint("route_Anomalia", __name__)
+ruta_anomalia = Blueprint("route_Anomalia", __name__)
 
 anomalia_schema = AnomaliaSchema()
 anomalias_schema = AnomaliaSchema(many=True)
 
-@ruta_user.route("/saveAnomalia", methods=['POST'])
+@ruta_anomalia.route("/saveAnomalia", methods=['POST'])
 def saveAnomalia():
     descripcionAnomalia= request.json['descripcionAnomalia']
     fechaReporteAnomalia = request.json['fechaReporteAnomalia']
@@ -23,14 +23,14 @@ def saveAnomalia():
     return "saved"
 
 
-@ruta_user.route("/GetAllAnomalias", methods=["GET"])
+@ruta_anomalia.route("/GetAllAnomalias", methods=["GET"])
 def GetAll():
     resultAll = Anomalia.query.all()
     respo = anomalias_schema(resultAll)
     return jsonify(respo)
 
 
-@ruta_user.route("deleteAnomalia", methods=['DELETE'])
+@ruta_anomalia.route("deleteAnomalia", methods=['DELETE'])
 def deleteAnomalia():
     id = request.json['id'] 
     anomalia = Anomalia.query.get(id)    
@@ -42,7 +42,7 @@ def deleteAnomalia():
         return jsonify({"message": "Anomalia not found"}), 404 
 
 
-@app.route("/updateAnomalia", methods=['POST'])
+@ruta_anomalia.route("/updateAnomalia", methods=['POST'])
 def updateAnomalia():    
     id = request.json['id'] 
     descripcionAnomalia= request.json['descripcionAnomalia']
@@ -68,7 +68,7 @@ def updateAnomalia():
     else:
          return jsonify({"message": "Anomalia not found"}), 404 
 
-@ruta_user.route("/getAnomaliasByUserId", methods=['GET'])
+@ruta_anomalia.route("/getAnomaliasByUserId", methods=['GET'])
 def getAnomaliasByUserId():
     idUser = request.json['idUser'] 
     anomalias = Anomalia.query.filter_by(IdUser=idUser).all()

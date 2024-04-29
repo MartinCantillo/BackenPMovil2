@@ -2,12 +2,12 @@ from flask import Flask, Blueprint, request, jsonify
 from config.bd import app, bd, ma
 from Models.Administrador import Administrador, AdministradorSchema
 
-ruta_user = Blueprint("route_Administrador", __name__)
+ruta_admin = Blueprint("route_Administrador", __name__)
 
 admin_schema = AdministradorSchema()
 admins_schema = AdministradorSchema(many=True)
 
-@ruta_user.route("/saveAdmin", methods=['POST'])
+@ruta_admin.route("/saveAdmin", methods=['POST'])
 def saveAdmin():
     nombreAdmin= request.json['nombreAdmin']
     apellidoAdmin = request.json['apellidoAdmin']
@@ -18,14 +18,14 @@ def saveAdmin():
     return "saved"
 
 
-@ruta_user.route("/GetAllAdmins", methods=["GET"])
+@ruta_admin.route("/GetAllAdmins", methods=["GET"])
 def GetAll():
     resultAll = Administrador.query.all()
     respo = admins_schema(resultAll)
     return jsonify(respo)
 
 
-@ruta_user.route("deleteAdmin", methods=['DELETE'])
+@ruta_admin.route("deleteAdmin", methods=['DELETE'])
 def deleteAdmin():
     id = request.json['id'] 
     admin = Administrador.query.get(id)    
@@ -37,7 +37,7 @@ def deleteAdmin():
          return jsonify({"message": "Admin not found"}), 404 
 
 
-@app.route("/updateAdmin", methods=['POST'])
+@ruta_admin.route("/updateAdmin", methods=['POST'])
 def updateAdmin():    
     id = request.json['id'] 
     nombreAdmin= request.json['nombreAdmin']

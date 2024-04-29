@@ -2,12 +2,12 @@ from flask import Flask, Blueprint, request, jsonify
 from config.bd import app, bd, ma
 from Models.Banner import Banner, BannerSchema
 
-ruta_user = Blueprint("route_Banner", __name__)
+ruta_banner = Blueprint("route_Banner", __name__)
 
 Banner_schema = BannerSchema()
 Banners_schema = BannerSchema(many=True)
 
-@ruta_user.route("/saveBanner", methods=['POST'])
+@ruta_banner.route("/saveBanner", methods=['POST'])
 def saveBanner():
     titulo= request.json['titulo']
     descripcion = request.json['descripcion']
@@ -18,14 +18,14 @@ def saveBanner():
     return "saved"
 
 
-@ruta_user.route("/GetAllBanners", methods=["GET"])
+@ruta_banner.route("/GetAllBanners", methods=["GET"])
 def GetAll():
     resultAll = Banner.query.all()
     respo = Banners_schema(resultAll)
     return jsonify(respo)
 
 
-@ruta_user.route("deleteBanner", methods=['DELETE'])
+@ruta_banner.route("deleteBanner", methods=['DELETE'])
 def deleteBanner():
     id = request.json['id'] 
     banner = Banner.query.get(id)    
@@ -37,7 +37,7 @@ def deleteBanner():
          return jsonify({"message": "Banner not found"}), 404 
 
 
-@app.route("/updateBanner", methods=['POST'])
+@ruta_banner.route("/updateBanner", methods=['POST'])
 def updateBanner():    
     id = request.json['id'] 
     titulo = request.json['titulo']
