@@ -8,8 +8,12 @@ from Api.AdministradorApi import ruta_admin
 from Api.ResidenteApi import ruta_residente
 from Api.AnomaliaApi import ruta_anomalia
 
-
-
+# Import the  Blueprints
+app.register_blueprint(ruta_user, url_prefix="/api")
+app.register_blueprint(ruta_banner, url_prefix="/api")
+app.register_blueprint(ruta_admin, url_prefix="/api")
+app.register_blueprint(ruta_residente, url_prefix="/api")
+app.register_blueprint(ruta_anomalia, url_prefix="/api")
 
 @app.route("/")
 def index():
