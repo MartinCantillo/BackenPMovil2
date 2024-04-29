@@ -44,7 +44,7 @@ def updateAdmin():
     apellidoAdmin = request.json['apellidoAdmin']
     telefono = request.json['telefono']
     adminGot = Administrador.query.get(id)  
-    if admin:
+    if adminGot:
         adminGot.nombreAdmin = nombreAdmin
         adminGot.apellidoAdmin = apellidoAdmin
         adminGot.telefono = telefono
