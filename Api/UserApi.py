@@ -1,7 +1,9 @@
 from flask import Flask, Blueprint, request, jsonify
+from config.Token import generate_token
 from config.bd import app, bd, ma
 from Models.User import User, UserSchema
 from config.routeProtection import token_required
+from werkzeug.security import check_password_hash
 
 ruta_user = Blueprint("route_user", __name__)
 
@@ -39,7 +41,7 @@ def deleteUser():
         return jsonify({"message": "User not found"}), 404 
 
 
-@app.route("/updateUser", methods=['POST'])
+@ruta_user.route("/updateUser", methods=['POST'])
 @token_required
 def updateUser():    
     id = request.json['id'] 
@@ -53,3 +55,21 @@ def updateUser():
         return "Updated sussefull"
     else:
          return jsonify({"message": "User not found"}), 404 
+
+@ruta_user.route("/login", methods=['POST'])
+def login():
+    username = request.json('username')
+    password = request.json('password')
+
+    if not username or not password:
+        return jsonify({"message": "Username and password are required"}), 400
+
+    user = User.query.filter_by(username=username).first()
+
+    if not user or not check_password_hash(user.password, password):
+        return jsonify({"message": "Invalid username or password"}), 401
+
+    # Generate JWT token
+    token = generate_token(user.id, user.username)
+    
+    return jsonify({"token": token["token"]}), 200
