@@ -1,6 +1,7 @@
 from flask import Flask, Blueprint, request, jsonify
 from config.bd import app, bd, ma
 from Models.Anomalia import Anomalia, AnomaliaSchema
+from config.routeProtection import token_required
 
 ruta_anomalia = Blueprint("route_Anomalia", __name__)
 
@@ -8,6 +9,7 @@ anomalia_schema = AnomaliaSchema()
 anomalias_schema = AnomaliaSchema(many=True)
 
 @ruta_anomalia.route("/saveAnomalia", methods=['POST'])
+@token_required
 def saveAnomalia():
     descripcionAnomalia= request.json['descripcionAnomalia']
     fechaReporteAnomalia = request.json['fechaReporteAnomalia']
@@ -24,6 +26,7 @@ def saveAnomalia():
 
 
 @ruta_anomalia.route("/GetAllAnomalias", methods=["GET"])
+@token_required
 def GetAll():
     resultAll = Anomalia.query.all()
     respo = anomalias_schema(resultAll)
@@ -31,6 +34,7 @@ def GetAll():
 
 
 @ruta_anomalia.route("deleteAnomalia", methods=['DELETE'])
+@token_required
 def deleteAnomalia():
     id = request.json['id'] 
     anomalia = Anomalia.query.get(id)    
@@ -43,6 +47,7 @@ def deleteAnomalia():
 
 
 @ruta_anomalia.route("/updateAnomalia", methods=['POST'])
+@token_required
 def updateAnomalia():    
     id = request.json['id'] 
     descripcionAnomalia= request.json['descripcionAnomalia']
@@ -69,6 +74,7 @@ def updateAnomalia():
          return jsonify({"message": "Anomalia not found"}), 404 
 
 @ruta_anomalia.route("/getAnomaliasByUserId", methods=['GET'])
+@token_required
 def getAnomaliasByUserId():
     idUser = request.json['idUser'] 
     anomalias = Anomalia.query.filter_by(IdUser=idUser).all()

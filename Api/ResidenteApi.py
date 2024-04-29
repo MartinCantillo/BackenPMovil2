@@ -1,6 +1,7 @@
 from flask import Flask, Blueprint, request, jsonify
 from config.bd import app, bd, ma
 from Models.Residente import Residente, ResidenteSchema
+from config.routeProtection import token_required
 
 ruta_residente = Blueprint("route_Residente", __name__)
 
@@ -8,6 +9,7 @@ Residente_schema = ResidenteSchema()
 Residentes_schema = ResidenteSchema(many=True)
 
 @ruta_residente.route("/saveResidente", methods=['POST'])
+@token_required
 def saveResidente():
     nombreResidente= request.json['nombreResidente']
     apellidoResidente = request.json['apellidoResidente']
@@ -21,6 +23,7 @@ def saveResidente():
 
 
 @ruta_residente.route("/GetAllresidentes", methods=["GET"])
+@token_required
 def GetAll():
     resultAll = Residente.query.all()
     respo = Residentes_schema(resultAll)
@@ -28,6 +31,7 @@ def GetAll():
 
 
 @ruta_residente.route("deleteResidente", methods=['DELETE'])
+@token_required
 def deleteResidente():
     id = request.json['id'] 
     residente = Residente.query.get(id)
@@ -40,6 +44,7 @@ def deleteResidente():
 
 
 @ruta_residente.route("/updateResidente", methods=['POST'])
+@token_required
 def updateResidente():    
     id = request.json['id'] 
     nombreResidente= request.json['nombreResidente']
@@ -60,6 +65,7 @@ def updateResidente():
         return jsonify({"message": "Residente not found"}), 404
 
 @ruta_residente.route("/GetResidenteById", methods=["GET"])
+@token_required
 def GetResidenteById(id):
     residente = request.json['id'] 
     if residente:

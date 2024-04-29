@@ -1,6 +1,7 @@
 from flask import Flask, Blueprint, request, jsonify
 from config.bd import app, bd, ma
 from Models.User import User, UserSchema
+from config.routeProtection import token_required
 
 ruta_user = Blueprint("route_user", __name__)
 
@@ -18,6 +19,7 @@ def saveUser():
 
 
 @ruta_user.route("/GetAllUsers", methods=["GET"])
+@token_required
 def GetAll():
     resultAll = User.query.all()
     respo = usuarios_schema(resultAll)
@@ -25,6 +27,7 @@ def GetAll():
 
 
 @ruta_user.route("deleteUser", methods=['DELETE'])
+@token_required
 def deleteUser():
     id = request.json['id'] 
     usuario = User.query.get(id)    
@@ -37,6 +40,7 @@ def deleteUser():
 
 
 @app.route("/updateUser", methods=['POST'])
+@token_required
 def updateUser():    
     id = request.json['id'] 
     username = request.json['username']
