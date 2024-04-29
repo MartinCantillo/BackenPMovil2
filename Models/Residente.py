@@ -1,6 +1,6 @@
 from  config.bd import bd,app,ma
 
-class Residente(bd.model):
+class Residente(bd.Model):
     __tablename__='tblResidente'
     id = bd.Column(bd.Integer, primary_key = True)
     nombreResidente = bd.Column(bd.String(50))

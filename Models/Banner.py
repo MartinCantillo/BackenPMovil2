@@ -1,6 +1,6 @@
 from  config.bd import bd,app,ma
 
-class Banner(bd.model):
+class Banner(bd.Model):
     __tablename__='tblBanner'
     id = bd.Column(bd.Integer, primary_key = True)
     titulo = bd.Column(bd.String(50))

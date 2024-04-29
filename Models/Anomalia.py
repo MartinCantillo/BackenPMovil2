@@ -1,6 +1,6 @@
 from  config.bd import bd,app,ma
 
-class Anomalia(bd.model):
+class Anomalia(bd.Model):
     __tablename__='tblAnomalia'
     id = bd.Column(bd.Integer, primary_key = True)
     descripcionAnomalia = bd.Column(bd.String(50))

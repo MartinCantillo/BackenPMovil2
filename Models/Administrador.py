@@ -1,6 +1,6 @@
 from  config.bd import bd,app,ma
 
-class Administrador(bd.model):
+class Administrador(bd.Model):
     __tablename__='tblAdministrador'
     id = bd.Column(bd.Integer, primary_key = True)
     nombreAdmin = bd.Column(bd.String(50))
