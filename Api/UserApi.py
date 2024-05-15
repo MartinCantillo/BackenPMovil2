@@ -58,18 +58,22 @@ def updateUser():
 
 @ruta_user.route("/login", methods=['POST'])
 def login():
-    username = request.json('username')
-    password = request.json('password')
+    username = request.json['username']
+    password = request.json['password']
 
     if not username or not password:
         return jsonify({"message": "Username and password are required"}), 400
 
     user = User.query.filter_by(username=username).first()
 
-    if not user or not check_password_hash(user.password, password):
+    if not user:
         return jsonify({"message": "Invalid username or password"}), 401
 
-    # Generate JWT token
-    token = generate_token(user.id, user.username)
     
+    if user.password != password:
+        return jsonify({"message": "Invalid username or password"}), 401
+
+    # Generar token JWT
+    token = generate_token(user.id, user.username)
+
     return jsonify({"token": token["token"]}), 200
