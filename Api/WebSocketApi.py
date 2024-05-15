@@ -1,4 +1,7 @@
 from flask_socketio import emit
+from flask import Flask, Blueprint, request, jsonify
+
+ruta_websocket = Blueprint("route_websocket", __name__)
 
 #  WebSocket routes within the function
 def configure_websocket_routes(socketio):

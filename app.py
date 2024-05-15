@@ -7,7 +7,7 @@ from Api.BannerApi import ruta_banner
 from Api.AdministradorApi import ruta_admin
 from Api.ResidenteApi import ruta_residente
 from Api.AnomaliaApi import ruta_anomalia
-from Api.WebSocketApi import configure_websocket_routes  # Import the function
+from Api.WebSocketApi import configure_websocket_routes , ruta_websocket # Import the function
 
 # Import the  Blueprints
 app.register_blueprint(ruta_user, url_prefix="/api")
@@ -15,6 +15,7 @@ app.register_blueprint(ruta_banner, url_prefix="/api")
 app.register_blueprint(ruta_admin, url_prefix="/api")
 app.register_blueprint(ruta_residente, url_prefix="/api")
 app.register_blueprint(ruta_anomalia, url_prefix="/api")
+app.register_blueprint(ruta_websocket, url_prefix="/api")
 
 @app.route("/")
 def index():
