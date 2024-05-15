@@ -14,7 +14,7 @@ def generate_due_date(dias=0, horas=0, minutos=0, segundos=0):
 
 def generate_token(user_id, user_token):
     try:
-        fecha_vencimiento = generate_due_date(segundos=240)["token"]
+        fecha_vencimiento = generate_due_date(minutos=10)["token"]
         payload = {
             "exp": fecha_vencimiento,
             "user_id": user_id,

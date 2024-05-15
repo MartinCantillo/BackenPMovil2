@@ -24,7 +24,8 @@ def saveUser():
 @token_required
 def GetAll():
     resultAll = User.query.all()
-    respo = usuarios_schema(resultAll)
+    respo = usuarios_schema.dump(resultAll)
+
     return jsonify(respo)
 
 
