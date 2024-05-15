@@ -24,7 +24,7 @@ def saveBanner():
 @token_required
 def GetAll():
     resultAll = Banner.query.all()
-    respo = Banners_schema(resultAll)
+    respo = Banners_schema.dump(resultAll)
     return jsonify(respo)
 
 

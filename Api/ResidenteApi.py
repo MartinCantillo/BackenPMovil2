@@ -26,7 +26,7 @@ def saveResidente():
 @token_required
 def GetAll():
     resultAll = Residente.query.all()
-    respo = Residentes_schema(resultAll)
+    respo = Residentes_schema.dump(resultAll)
     return jsonify(respo)
 
 
@@ -38,7 +38,7 @@ def deleteResidente():
     if residente:        
         bd.session.delete(residente)
         bd.session.commit()     
-        return jsonify(Residente_schema.dump(residente))
+        return jsonify(Residente_schema(residente))
     else:
          return jsonify({"message": "Residente not found"}), 404 
 

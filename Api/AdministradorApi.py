@@ -24,7 +24,7 @@ def saveAdmin():
 @token_required
 def GetAll():
     resultAll = Administrador.query.all()
-    respo = admins_schema(resultAll)
+    respo = admins_schema.dump(resultAll)
     return jsonify(respo)
 
 
@@ -36,7 +36,7 @@ def deleteAdmin():
     if admin:
          bd.session.delete(admin)
          bd.session.commit()     
-         return jsonify(admin_schema.dump(admin))
+         return jsonify(admin_schema(admin))
     else:
          return jsonify({"message": "Admin not found"}), 404 
 

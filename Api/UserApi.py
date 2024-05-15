@@ -37,7 +37,7 @@ def deleteUser():
     if usuario:
         bd.session.delete(usuario)
         bd.session.commit()     
-        return jsonify(usuario_schema.dump(usuario))
+        return jsonify(usuario_schema(usuario))
     else:
         return jsonify({"message": "User not found"}), 404 
 

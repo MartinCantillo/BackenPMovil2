@@ -29,7 +29,7 @@ def saveAnomalia():
 @token_required
 def GetAll():
     resultAll = Anomalia.query.all()
-    respo = anomalias_schema(resultAll)
+    respo = anomalias_schema.dump(resultAll)
     return jsonify(respo)
 
 
@@ -41,7 +41,7 @@ def deleteAnomalia():
     if anomalia:
         bd.session.delete(anomalia)
         bd.session.commit()     
-        return jsonify(anomalia_schema.dump(anomalia))
+        return jsonify(anomalia_schema(anomalia))
     else:
         return jsonify({"message": "Anomalia not found"}), 404 
 
