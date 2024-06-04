@@ -3,7 +3,6 @@ from config.Token import generate_token
 from config.bd import app, bd, ma
 from Models.User import User, UserSchema
 from config.routeProtection import token_required
-from werkzeug.security import check_password_hash
 
 ruta_user = Blueprint("route_user", __name__)
 

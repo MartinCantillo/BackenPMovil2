@@ -17,6 +17,10 @@ def saveBanner():
     newBanner = Banner(titulo, descripcion,fecha)
     bd.session.add(newBanner)
     bd.session.commit()
+
+    banner_id = newBanner.id
+
+    return jsonify({'message': 'Banner saved', 'banner_id': banner_id}), 200
     return "saved"
 
 
@@ -28,32 +32,32 @@ def GetAll():
     return jsonify(respo)
 
 
-@ruta_banner.route("deleteBanner", methods=['DELETE'])
+@ruta_banner.route("/deleteBanner", methods=['DELETE'])
 @token_required
 def deleteBanner():
-    id = request.json['id'] 
-    banner = Banner.query.get(id)    
+    id = request.json['id']
+    banner = Banner.query.get(id)
     if banner:
         bd.session.delete(banner)
-        bd.session.commit()     
-        return jsonify(Banner_schema.dump(banner))
-    else: 
-         return jsonify({"message": "Banner not found"}), 404 
+        bd.session.commit()
+        return jsonify("Banner deleted")
+    else:
+         return jsonify({"message": "Banner not found"}), 404
 
 
 @ruta_banner.route("/updateBanner", methods=['POST'])
 @token_required
-def updateBanner():    
-    id = request.json['id'] 
+def updateBanner():
+    id = request.json['id']
     titulo = request.json['titulo']
     descripcion = request.json['descripcion']
     fecha = request.json['fecha']
-    bannerGot = Banner.query.get(id)  
+    bannerGot = Banner.query.get(id)
     if bannerGot:
         bannerGot.username = titulo
         bannerGot.descripcion = descripcion
         bannerGot.fecha = fecha
-        bd.session.commit()     
+        bd.session.commit()
         return "Updated sussefull"
-    else: 
-         return jsonify({"message": "Banner not found"}), 404 
+    else:
+         return jsonify({"message": "Banner not found"}), 404

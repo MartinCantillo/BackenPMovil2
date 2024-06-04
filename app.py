@@ -19,16 +19,16 @@ app.register_blueprint(ruta_websocket, url_prefix="/api")
 
 @app.route("/")
 def index():
-    return "Welcome"
+    return "Welcome to the backend by Martin Cantillo "
 
 #Enable CORS for the entire application
 CORS(app)
 
 # Initialize Flask app and SocketIO
-socketio = SocketIO(app, cors_allowed_origins="*") 
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 # Configure WebSocket routes
 configure_websocket_routes(socketio)
 
-if __name__ == "__main__":
-    socketio.run(app, debug=True, port=5000, host="0.0.0.0")
+#if __name__ == "__main__":
+ #   socketio.run(app, debug=True, port=5000, host="0.0.0.0")

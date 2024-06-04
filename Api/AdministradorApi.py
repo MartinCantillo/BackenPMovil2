@@ -28,32 +28,32 @@ def GetAll():
     return jsonify(respo)
 
 
-@ruta_admin.route("deleteAdmin", methods=['DELETE'])
+@ruta_admin.route("/deleteAdmin", methods=['DELETE'])
 @token_required
 def deleteAdmin():
-    id = request.json['id'] 
-    admin = Administrador.query.get(id)    
+    id = request.json['id']
+    admin = Administrador.query.get(id)
     if admin:
          bd.session.delete(admin)
-         bd.session.commit()     
-         return jsonify(admin_schema(admin))
+         bd.session.commit()
+         return jsonify(admin_schema.dump(admin))
     else:
-         return jsonify({"message": "Admin not found"}), 404 
+         return jsonify({"message": "Admin not found"}), 404
 
 
 @ruta_admin.route("/updateAdmin", methods=['POST'])
 @token_required
-def updateAdmin():    
-    id = request.json['id'] 
+def updateAdmin():
+    id = request.json['id']
     nombreAdmin= request.json['nombreAdmin']
     apellidoAdmin = request.json['apellidoAdmin']
     telefono = request.json['telefono']
-    adminGot = Administrador.query.get(id)  
+    adminGot = Administrador.query.get(id)
     if adminGot:
         adminGot.nombreAdmin = nombreAdmin
         adminGot.apellidoAdmin = apellidoAdmin
         adminGot.telefono = telefono
-        bd.session.commit()     
+        bd.session.commit()
         return "Updated sussefull"
     else:
-         return jsonify({"message": "Admin not found"}), 404 
+         return jsonify({"message": "Admin not found"}), 404

@@ -5,8 +5,8 @@ class Residente(bd.Model):
     id = bd.Column(bd.Integer, primary_key = True)
     nombreResidente = bd.Column(bd.String(50))
     apellidoResidente = bd.Column(bd.String(50))
-    numApartamento = bd.Column(bd.String(50))
-    numTelefono = bd.Column(bd.String(50))
+    numApartamento = bd.Column(bd.String(3))
+    numTelefono = bd.Column(bd.String(10))
     IdUser = bd.Column(bd.Integer, bd.ForeignKey("tblUser.id"))
 
     def __init__(self,nombreResidente,apellidoResidente,numApartamento,numTelefono,IdUser):
@@ -21,4 +21,4 @@ with app.app_context():
 
 class ResidenteSchema(ma.Schema):
     class Meta:
-        fields=("id","nombreResidente","apellidoResidente","numApartamento","numTelefono","IdUser")    
+        fields=("id","nombreResidente","apellidoResidente","numApartamento","numTelefono","IdUser")

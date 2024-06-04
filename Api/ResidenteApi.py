@@ -14,9 +14,9 @@ def saveResidente():
     apellidoResidente = request.json['apellidoResidente']
     numApartamento = request.json['numApartamento']
     numTelefono = request.json['numTelefono']
-    IdUser = request.json['IdUser']
+    idUser = request.json['idUser']
 
-    newResidente = Residente(nombreResidente, apellidoResidente, numApartamento, numTelefono, IdUser)
+    newResidente = Residente(nombreResidente, apellidoResidente, numApartamento, numTelefono, idUser)
     bd.session.add(newResidente)
     bd.session.commit()
 
@@ -67,11 +67,15 @@ def updateResidente():
     else:
         return jsonify({"message": "Residente not found"}), 404
 
-@ruta_residente.route("/GetResidenteById", methods=["GET"])
+@ruta_residente.route("/GetResidenteById", methods=["POST"])
 @token_required
-def GetResidenteById(id):
-    residente = request.json['id']
+def get_residente_by_id():
+    id_usuario =request.json['IdUser']
+    if not id_usuario:
+        return jsonify({"message": "ID de usuario is required"}), 400
+
+    residente = Residente.query.filter_by(IdUser=id_usuario).first()
     if residente:
-        return Residente_schema.jsonify(residente)
+        return jsonify(Residente_schema.dump(residente)),200
     else:
         return jsonify({"message": "Residente not found"}), 404

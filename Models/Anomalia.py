@@ -5,7 +5,7 @@ class Anomalia(bd.Model):
     id = bd.Column(bd.Integer, primary_key = True)
     descripcionAnomalia = bd.Column(bd.String(50))
     fechaReporteAnomalia = bd.Column(bd.String(50))
-    fotoAnomalia = bd.Column(bd.String(50))
+    fotoAnomalia = bd.Column(bd.String(255))
     tipoAnomalia = bd.Column(bd.String(50))
     asuntoAnomalia = bd.Column(bd.String(50))
     idEstadoAnomalia = bd.Column(bd.String(50))
@@ -27,4 +27,4 @@ with app.app_context():
 
 class AnomaliaSchema(ma.Schema):
     class Meta:
-        fields=("id","descripcionAnomalia","fechaReporteAnomalia","fotoAnomalia","tipoAnomalia","asuntoAnomalia","idEstadoAnomalia","prioridad","IdUser")    
+        fields=("id","descripcionAnomalia","fechaReporteAnomalia","fotoAnomalia","tipoAnomalia","asuntoAnomalia","idEstadoAnomalia","prioridad","IdUser")
